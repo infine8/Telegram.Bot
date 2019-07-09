@@ -174,8 +174,12 @@ namespace Telegram.Bot
                 );
             }
 
+
             _baseRequestUrl = $"{BaseUrl}{_token}/";
-            _httpClient = httpClient ?? new HttpClient();
+            _httpClient = httpClient ?? new HttpClient(new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+            });
         }
 
         /// <summary>
